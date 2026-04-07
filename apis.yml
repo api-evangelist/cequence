@@ -3,10 +3,10 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/cequence/refs/heads/main/apis.yml
 name: Cequence
 tags:
-  - Security
   - API Security
   - Bots
   - Cybersecurity
+  - Security
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
