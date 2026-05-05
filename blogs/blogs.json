@@ -1,0 +1,13 @@
+{
+  "repo": "cequence",
+  "feeds": [
+    {
+      "source": "https://www.cequence.ai/blog/",
+      "feed_url": "https://www.cequence.ai/feed/",
+      "saved": 10,
+      "title": "Cequence Security"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:24:59Z"
+}
