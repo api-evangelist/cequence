@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://www.cequence.ai/blog/",
-      "feed_url": "https://www.cequence.ai/feed/",
-      "saved": 10,
-      "title": "Cequence Security"
+      "feed_url": "https://www.cequence.ai/blog/feed/",
+      "title": "Blog | Cequence Security",
+      "saved": 2
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:24:59Z"
+  "post_count": 12,
+  "fetched": "2026-05-09T20:17:51Z"
 }
