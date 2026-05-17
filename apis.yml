@@ -143,7 +143,7 @@ common:
     url: https://www.cequence.ai/blog/
   - type: News
     url: https://www.cequence.ai/news/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.cequence.ai/privacy-policy/
 maintainers:
   - FN: Kin Lane
