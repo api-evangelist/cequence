@@ -133,6 +133,10 @@ apis:
       and providing real-time detection and mitigation through active
       traffic inspection.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/cequence-io
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/cequence-security
   - type: Website
     url: https://www.cequence.ai/
   - type: Products
