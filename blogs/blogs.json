@@ -2,17 +2,17 @@
   "repo": "cequence",
   "feeds": [
     {
-      "source": "https://www.cequence.ai/blog/feed/",
-      "feed_url": "https://www.cequence.ai/blog/feed/",
+      "source": "https://www.cequence.ai/blog/",
+      "feed_url": "https://www.cequence.ai/feed/",
       "title": "",
-      "saved": 0,
-      "method": "feed"
+      "saved": 3,
+      "method": "discovered"
     },
     {
       "source": "https://helpdesk.cequence.ai/",
       "error": "HTTPError"
     }
   ],
-  "post_count": 30,
-  "fetched": "2026-06-01T23:35:02Z"
+  "post_count": 37,
+  "fetched": "2026-06-14T20:42:17Z"
 }
