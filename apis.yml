@@ -149,7 +149,7 @@ common:
     url: https://www.cequence.ai/news/
   - type: PrivacyPolicy
     url: https://www.cequence.ai/privacy-policy/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://www.cequence.ai/llms.txt
 maintainers:
   - FN: Kin Lane
