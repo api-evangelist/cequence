@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.cequence.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 26 17:38:02 2026 GMT
+  hsts: true
+  hsts_max_age: 2592000
+- host: helpdesk.cequence.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 23:42:56 2026 GMT
+  hsts: true
+  hsts_max_age: 259200
+domains:
+- domain: cequence.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
