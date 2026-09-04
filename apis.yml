@@ -1,19 +1,18 @@
 aid: cequence
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/cequence/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/cequence/refs/heads/main/apis.yml
 name: Cequence Security
 tags:
-  - AI Protection
-  - API Discovery
-  - API Security
-  - Application Security
-  - Attack Surface
-  - Bot Management
-  - Business Logic Abuse
-  - CNAPP
-  - Cybersecurity
-  - Fraud
-  - Unified API Protection
+- AI Protection
+- API Discovery
+- API Security
+- Application Security
+- Attack Surface
+- Bot Management
+- Business Logic Abuse
+- CNAPP
+- Cybersecurity
+- Fraud
+- Unified API Protection
 type: Index
 deliveryModel:
   model: unknown
@@ -42,142 +41,179 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cequence.p
 access: 3rd-Party
 created: '2025-01-08'
 modified: '2026-04-23'
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
-description: >-
-  Cequence Security delivers the Unified API Protection (UAP) platform,
-  combining external API attack-surface discovery, posture and compliance
-  analysis, inline runtime protection, and testing into a single solution
-  for defending web applications, APIs, and AI endpoints against business
-  logic abuse, bot attacks, and fraud. The Cequence product family is
-  organized into API Spyder (agentless external discovery), API Sentinel
-  (API inventory, posture, and compliance), API Spartan (runtime bot and
-  abuse defense), API Security Testing (shift-left OpenAPI conformance and
-  vulnerability testing), and Cequence Defender (inline reverse-proxy
-  enforcement of API policy).
+description: Cequence Security delivers the Unified API Protection (UAP) platform, combining external API attack-surface
+  discovery, posture and compliance analysis, inline runtime protection, and testing into a single solution for
+  defending web applications, APIs, and AI endpoints against business logic abuse, bot attacks, and fraud. The Cequence
+  product family is organized into API Spyder (agentless external discovery), API Sentinel (API inventory, posture,
+  and compliance), API Spartan (runtime bot and abuse defense), API Security Testing (shift-left OpenAPI conformance
+  and vulnerability testing), and Cequence Defender (inline reverse-proxy enforcement of API policy).
 apis:
-  - aid: cequence:cequence-api-spyder
-    name: Cequence API Spyder
-    tags:
-      - Attack Surface Management
-      - Discovery
-      - External Scanning
-      - Shadow APIs
-    humanURL: https://www.cequence.ai/products/api-spyder/
-    properties:
-      - url: https://www.cequence.ai/products/api-spyder/
-        type: Website
-      - url: https://www.cequence.ai/wp-content/uploads/2022/06/cequence-ds-apispyder.pdf
-        type: Datasheet
-      - url: https://www.cequence.ai/apispyder-demo/
-        type: Demo
-    description: >-
-      API Spyder is a SaaS-based, agentless external discovery service that
-      provides an attacker's view into an organization's public-facing API
-      hosts, hosting providers, and API-specific exposures including weak
-      TLS and shadow APIs. Crawls can be on-demand or scheduled for
-      continuous external attack-surface monitoring.
-  - aid: cequence:cequence-api-sentinel
-    name: Cequence API Sentinel
-    tags:
-      - API Inventory
-      - Compliance
-      - Posture
-      - Risk
-      - Sensitive Data
-    humanURL: https://www.cequence.ai/products/
-    properties:
-      - url: https://www.cequence.ai/products/
-        type: Website
-      - url: https://helpdesk.cequence.ai/
-        type: HelpCenter
-    description: >-
-      API Sentinel is the Cequence API posture and compliance module that
-      continuously inventories internal and external APIs, classifies
-      sensitive data flows, scores API risk against governance policies,
-      and generates remediation guidance for security and platform teams.
-  - aid: cequence:cequence-api-spartan
-    name: Cequence API Spartan
-    tags:
-      - ATO
-      - Bot Management
-      - Business Logic Abuse
-      - Credential Stuffing
-      - Fraud
-      - Runtime
-    humanURL: https://www.cequence.ai/products/
-    properties:
-      - url: https://www.cequence.ai/products/
-        type: Website
-      - url: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
-        type: Documentation
-    description: >-
-      API Spartan provides runtime protection against malicious and
-      unwanted API traffic, including account takeover, credential
-      stuffing, scraping, gift-card fraud, and other business logic
-      abuse, with ML-driven detection and mitigation actions such as
-      blocking, rate limiting, and deception.
-  - aid: cequence:cequence-api-security-testing
-    name: Cequence API Security Testing
-    tags:
-      - Conformance
-      - DAST
-      - OWASP API Top 10
-      - Pre-Production
-      - Testing
-    humanURL: https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/
-    properties:
-      - url: https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/
-        type: Announcement
-      - url: https://www.cequence.ai/products/
-        type: Website
-    description: >-
-      API Security Testing extends Cequence into shift-left, performing
-      pre-production OpenAPI conformance and vulnerability testing against
-      the OWASP API Security Top 10, feeding results back into Sentinel
-      and Spartan for continuous lifecycle protection.
-  - aid: cequence:cequence-defender
-    name: Cequence Defender
-    tags:
-      - Enforcement
-      - Inline
-      - Policy
-      - Reverse Proxy
-      - Runtime
-    humanURL: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
-    properties:
-      - url: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
-        type: Documentation
-      - url: https://www.cequence.ai/products/
-        type: Website
-    description: >-
-      Cequence Defender is a reverse-proxy deployed inline with API
-      traffic, enforcing API policies, filtering malicious traffic,
-      and providing real-time detection and mitigation through active
-      traffic inspection.
+- aid: cequence:cequence-api-spyder
+  name: Cequence API Spyder
+  tags:
+  - Attack Surface Management
+  - Discovery
+  - External Scanning
+  - Shadow APIs
+  humanURL: https://www.cequence.ai/products/api-spyder/
+  properties:
+  - url: https://www.cequence.ai/products/api-spyder/
+    type: Website
+  - url: https://www.cequence.ai/wp-content/uploads/2022/06/cequence-ds-apispyder.pdf
+    type: Datasheet
+  - url: https://www.cequence.ai/apispyder-demo/
+    type: Demo
+  description: API Spyder is a SaaS-based, agentless external discovery service that provides an attacker's view
+    into an organization's public-facing API hosts, hosting providers, and API-specific exposures including weak
+    TLS and shadow APIs. Crawls can be on-demand or scheduled for continuous external attack-surface monitoring.
+- aid: cequence:cequence-api-sentinel
+  name: Cequence API Sentinel
+  tags:
+  - API Inventory
+  - Compliance
+  - Posture
+  - Risk
+  - Sensitive Data
+  humanURL: https://www.cequence.ai/products/
+  properties:
+  - url: https://www.cequence.ai/products/
+    type: Website
+  - url: https://helpdesk.cequence.ai/
+    type: HelpCenter
+  description: API Sentinel is the Cequence API posture and compliance module that continuously inventories internal
+    and external APIs, classifies sensitive data flows, scores API risk against governance policies, and generates
+    remediation guidance for security and platform teams.
+- aid: cequence:cequence-api-spartan
+  name: Cequence API Spartan
+  tags:
+  - ATO
+  - Bot Management
+  - Business Logic Abuse
+  - Credential Stuffing
+  - Fraud
+  - Runtime
+  humanURL: https://www.cequence.ai/products/
+  properties:
+  - url: https://www.cequence.ai/products/
+    type: Website
+  - url: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
+    type: Documentation
+  description: API Spartan provides runtime protection against malicious and unwanted API traffic, including account
+    takeover, credential stuffing, scraping, gift-card fraud, and other business logic abuse, with ML-driven detection
+    and mitigation actions such as blocking, rate limiting, and deception.
+- aid: cequence:cequence-api-security-testing
+  name: Cequence API Security Testing
+  tags:
+  - Conformance
+  - DAST
+  - OWASP API Top 10
+  - Pre-Production
+  - Testing
+  humanURL: https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/
+  properties:
+  - url: https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/
+    type: Announcement
+  - url: https://www.cequence.ai/products/
+    type: Website
+  description: API Security Testing extends Cequence into shift-left, performing pre-production OpenAPI conformance
+    and vulnerability testing against the OWASP API Security Top 10, feeding results back into Sentinel and Spartan
+    for continuous lifecycle protection.
+- aid: cequence:cequence-defender
+  name: Cequence Defender
+  tags:
+  - Enforcement
+  - Inline
+  - Policy
+  - Reverse Proxy
+  - Runtime
+  humanURL: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
+  properties:
+  - url: https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview
+    type: Documentation
+  - url: https://www.cequence.ai/products/
+    type: Website
+  description: Cequence Defender is a reverse-proxy deployed inline with API traffic, enforcing API policies, filtering
+    malicious traffic, and providing real-time detection and mitigation through active traffic inspection.
+- name: Cequence AI Gateway
+  description: Enterprise AI Gateway that makes applications agent-ready through governed Model Context Protocol
+    integration. Register a REST API from its OpenAPI spec (or proxy a third-party remote MCP server) and the gateway
+    publishes it as an MCP endpoint with inbound SSO/OAuth/API-key/JWT authentication, outbound credential injection
+    (OAuth 2.1 authorization or client-credentials, API key, bearer, JWT bearer, basic, passthrough), per-tool rate
+    limiting, DLP redaction, circuit breaking, agent personas that compose tools across servers, a SKILL.md skill
+    registry, and audit export to Splunk HEC, Datadog, OTLP or syslog. Cequence also operates a first-party hosted
+    MCP server, provisioned for every tenant, that manages the gateway itself from any agent.
+  humanURL: https://docs.aigateway.cequence.ai/docs/introduction
+  baseURL: https://aigateway.cequence.ai
+  tags:
+  - AI Gateway
+  - MCP
+  - Agentic AI
+  - API Security
+  - API Governance
+  - agent-native
+  tags_raw:
+  - ai-gateway
+  - model-context-protocol
+  - agentic-ai
+  - api-security
+  - api-governance
+  - agent-native
+  properties:
+  - type: Documentation
+    url: https://docs.aigateway.cequence.ai/docs/introduction
+  - type: APIReference
+    url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+  - type: GettingStarted
+    url: https://docs.aigateway.cequence.ai/docs/getstarted
+  - type: MCPServer
+    url: mcp/cequence-security-mcp.yml
+  - type: Documentation
+    url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+  - type: Authentication
+    url: authentication/cequence-security-authentication.yml
+  - type: Conventions
+    url: conventions/cequence-security-conventions.yml
+  - type: RateLimits
+    url: rate-limits/cequence-security-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/cequence-security-problem-types.yml
+  - type: CLI
+    url: cli/cequence-security-cli.yml
+  - type: LLMsTxt
+    url: llms/cequence-security-llms.txt
 common:
-  - type: TrustCenter
-    url: security/cequence-trust-center.yml
-  - type: DomainSecurity
-    url: security/cequence-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/cequence-io
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/cequence-security
-  - type: Website
-    url: https://www.cequence.ai/
-  - type: Products
-    url: https://www.cequence.ai/products/
-  - type: HelpCenter
-    url: https://helpdesk.cequence.ai/
-  - type: Blog
-    url: https://www.cequence.ai/blog/
-  - type: News
-    url: https://www.cequence.ai/news/
-  - type: PrivacyPolicy
-    url: https://www.cequence.ai/privacy-policy/
-  - type: LlmsText
-    url: https://www.cequence.ai/llms.txt
+- type: TrustCenter
+  url: security/cequence-trust-center.yml
+- type: DomainSecurity
+  url: security/cequence-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/cequence-io
+- type: LinkedIn
+  url: https://www.linkedin.com/company/cequence-security
+- type: Website
+  url: https://www.cequence.ai/
+- type: Products
+  url: https://www.cequence.ai/products/
+- type: HelpCenter
+  url: https://helpdesk.cequence.ai/
+- type: Blog
+  url: https://www.cequence.ai/blog/
+- type: News
+  url: https://www.cequence.ai/news/
+- type: PrivacyPolicy
+  url: https://www.cequence.ai/privacy-policy/
+- type: LlmsText
+  url: https://www.cequence.ai/llms.txt
+- type: DeveloperPortal
+  url: https://aigateway.cequence.ai
+- type: Documentation
+  url: https://docs.aigateway.cequence.ai/docs/introduction
+- type: APIReference
+  url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+- type: GitHubOrganization
+  url: https://github.com/cequenceai
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
