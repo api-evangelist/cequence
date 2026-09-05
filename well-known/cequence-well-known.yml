@@ -1,0 +1,124 @@
+generated: '2026-09-05'
+method: probed
+source: live GET of the named /.well-known/ path list on every host this record knows
+note: >-
+  The only host in the Cequence estate that serves real discovery documents is
+  mcp.aigateway.cequence.ai, the first-party Cequence AI Gateway MCP endpoint. It publishes
+  RFC 9728 protected-resource metadata and RFC 8414 / OIDC authorization-server metadata,
+  exactly as the docs claim ("The server fronts a clean OAuth surface (RFC 8414 + RFC 9728)").
+  aigateway.cequence.ai and docs.aigateway.cequence.ai are single-page-app catch-alls that
+  answer HTTP 200 with the same HTML shell for EVERY path, including a negative control that
+  cannot exist — none of their 200s is a document, and no pointer is claimed from them.
+  www.cequence.ai (WordPress) 404s the whole list; cequence.ai 301s to www.
+hit_count: 3
+path_echo_control: passed
+hosts:
+- host: https://mcp.aigateway.cequence.ai
+  soft_404_control:
+    path: /.well-known/cequence-negative-control-7f3ab91c.json
+    status: 404
+    verdict: pass
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: cequence-oauth-protected-resource.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: cequence-oauth-authorization-server.json
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: cequence-openid-configuration.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+- host: https://www.cequence.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+- host: https://aigateway.cequence.ai
+  hit_count: 0
+  soft_404_control:
+    path: /.well-known/cequence-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 3340
+    content_type: text/html; charset=utf-8
+    verdict: fail
+  note: >-
+    SPA catch-all. Every path on this host returns HTTP 200 with the same 3,340-byte HTML
+    shell, including a control path that cannot exist. No document was fetched or saved and
+    no pointer is claimed from this host.
+  documents: []
+- host: https://docs.aigateway.cequence.ai
+  hit_count: 0
+  soft_404_control:
+    path: /.well-known/cequence-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 5193
+    content_type: text/html; charset=utf-8
+    verdict: fail
+  note: >-
+    SPA catch-all, same shape as the portal host — 200 with a 5,193-byte HTML shell on every
+    path. Its real machine-readable surface is /llms.txt and /sitemap.xml, not /.well-known/.
+  documents: []
+- host: https://helpdesk.cequence.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /apis.json
+    status: 404
+- host: https://trust.cequence.ai
+  note: Every path returns 403 from the edge (application/xml body); no probe result is usable.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403

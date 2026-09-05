@@ -1,0 +1,47 @@
+generated: '2026-09-05'
+method: probed
+source: https://mcp.aigateway.cequence.ai/.well-known/oauth-authorization-server
+docs: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+note: >-
+  Read from the live RFC 8414 authorization-server metadata and the RFC 9728 protected-resource
+  metadata served by the first-party Cequence AI Gateway MCP endpoint. Cequence publishes no
+  standalone scopes reference page. The scope set is the identity-provider scope set (Descope,
+  fronted by Cequence) — it carries WHO the caller is, not WHAT they may do. Actual permission
+  is resolved server-side from the caller's AI Gateway role and Team membership, which is why
+  the docs state that a read-only role receives an authorization error on write tools rather
+  than being refused a scope at the token endpoint. Do not read this list as a permission model.
+schemes:
+- name: Cequence AI Gateway MCP OAuth
+  source: well-known/cequence-oauth-authorization-server.json
+  issuer: https://mcp.aigateway.cequence.ai
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://mcp.aigateway.cequence.ai/authorize
+    tokenUrl: https://mcp.aigateway.cequence.ai/token
+    pkce: S256
+  grant_types_supported: [authorization_code, refresh_token]
+scopes:
+- scope: openid
+  description: OpenID Connect — issue an ID token identifying the caller.
+  flows: [authorizationCode]
+  sources: [well-known/cequence-oauth-authorization-server.json]
+- scope: profile
+  description: Basic profile claims for the authenticated AI Gateway user.
+  flows: [authorizationCode]
+  sources: [well-known/cequence-oauth-authorization-server.json]
+- scope: email
+  description: The authenticated user's email address, used as the audit identity on every tool call.
+  flows: [authorizationCode]
+  sources: [well-known/cequence-oauth-authorization-server.json]
+- scope: descope.claims
+  description: Standard claims from the Descope identity provider that backs AI Gateway login.
+  flows: [authorizationCode]
+  sources: [well-known/cequence-oauth-authorization-server.json]
+- scope: descope.custom_claims
+  description: Tenant-defined custom claims from Descope, the vehicle for role and team assertions.
+  flows: [authorizationCode]
+  sources: [well-known/cequence-oauth-authorization-server.json]
+authorization_model:
+  enforced_by: server-side role and team check, not scope
+  roles_named_in_docs: [PlatformOperator, TenantUser, read-only]
+  evidence: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway

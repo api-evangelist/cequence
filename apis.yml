@@ -40,7 +40,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cequence.png
 access: 3rd-Party
 created: '2025-01-08'
-modified: '2026-04-23'
+modified: '2026-09-05'
 position: Consuming
 specificationVersion: '0.23'
 description: Cequence Security delivers the Unified API Protection (UAP) platform, combining external API attack-surface
@@ -168,42 +168,48 @@ apis:
   - type: GettingStarted
     url: https://docs.aigateway.cequence.ai/docs/getstarted
   - type: MCPServer
-    url: mcp/cequence-security-mcp.yml
+    url: mcp/cequence-mcp.yml
   - type: Documentation
     url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
   - type: Authentication
-    url: authentication/cequence-security-authentication.yml
+    url: authentication/cequence-authentication.yml
   - type: Conventions
-    url: conventions/cequence-security-conventions.yml
+    url: conventions/cequence-conventions.yml
   - type: RateLimits
-    url: rate-limits/cequence-security-rate-limits.yml
+    url: rate-limits/cequence-rate-limits.yml
   - type: ErrorCatalog
-    url: errors/cequence-security-problem-types.yml
+    url: errors/cequence-problem-types.yml
   - type: CLI
-    url: cli/cequence-security-cli.yml
+    url: cli/cequence-cli.yml
   - type: LLMsTxt
-    url: llms/cequence-security-llms.txt
+    url: llms/cequence-ai-gateway-llms.txt
+  - type: Website
+    url: https://www.cequence.ai/products/ai-gateway/
+  - type: OAuthScopes
+    url: scopes/cequence-scopes.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: WellKnown
+    url: well-known/cequence-well-known.yml
 common:
 - type: TrustCenter
   url: security/cequence-trust-center.yml
 - type: DomainSecurity
   url: security/cequence-domain-security.yml
-- type: GitHubOrganization
-  url: https://github.com/cequence-io
 - type: LinkedIn
   url: https://www.linkedin.com/company/cequence-security
 - type: Website
   url: https://www.cequence.ai/
-- type: Products
+- type: Solutions
   url: https://www.cequence.ai/products/
 - type: HelpCenter
   url: https://helpdesk.cequence.ai/
 - type: Blog
   url: https://www.cequence.ai/blog/
-- type: News
-  url: https://www.cequence.ai/news/
+- type: Newsroom
+  url: https://www.cequence.ai/newsroom/
 - type: PrivacyPolicy
-  url: https://www.cequence.ai/privacy-policy/
+  url: https://www.cequence.ai/privacy/
 - type: LlmsText
   url: https://www.cequence.ai/llms.txt
 - type: DeveloperPortal
@@ -214,6 +220,38 @@ common:
   url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
 - type: GitHubOrganization
   url: https://github.com/cequenceai
+- type: WellKnown
+  url: well-known/cequence-well-known.yml
+- type: Packages
+  url: packages/cequence-packages.yml
+- type: SDKs
+  url: packages/cequence-packages.yml
+- type: OAuthScopes
+  url: scopes/cequence-scopes.yml
+- type: Conformance
+  url: conformance/cequence-conformance.yml
+- type: Compliance
+  url: https://www.cequence.ai/compliance/
+- type: Lifecycle
+  url: lifecycle/cequence-lifecycle.yml
+- type: VulnerabilityDisclosure
+  url: security/cequence-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.cequence.ai/responsible-disclosure-policy/
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Plans
+  url: plans/cequence-plans-pricing.yml
+- type: TermsOfService
+  url: https://www.cequence.ai/legal/saas-ai-gateway-end-user-license-agreement/
+- type: Login
+  url: https://aigateway.cequence.ai/login
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v3

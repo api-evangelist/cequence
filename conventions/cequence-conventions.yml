@@ -1,0 +1,131 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.aigateway.cequence.ai/docs/guides/security-policies
+also:
+- https://docs.aigateway.cequence.ai/docs/guides/observability
+- https://docs.aigateway.cequence.ai/docs/guides/multi-authentication
+- https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+scope: >-
+  Cequence AI Gateway. The surface an outside caller can reach is MCP over Streamable HTTP,
+  not REST — so the conventions below are MCP tool-call semantics plus the gateway's own
+  enforcement pipeline. Cequence publishes no OpenAPI, so nothing here is derived from a spec.
+authentication:
+  style: OAuth 2.1 authorization-code with PKCE, or an agent access key
+  discovery: RFC 8414 + RFC 9728 documents served at the MCP host
+  detail: authentication/cequence-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  note: >-
+    No replay-protection contract is published. There is no Idempotency-Key header, no client
+    request token, and no documented statement about what happens when the same create call
+    arrives twice. Of the five write tools on the first-party MCP server, two
+    (create_agent_persona, create_mcp_server) accept a dryRun flag — which lets an agent
+    REHEARSE a call, but does not stop a retried real call from creating a second persona.
+    Dry-run and idempotency are different guarantees and the gateway ships only the first.
+dry_run_mode:
+  supported: true
+  coverage: partial
+  scope: [create_agent_persona, create_mcp_server]
+  mechanism: a dryRun boolean on the tool call
+  behavior: >-
+    Validates every referenced tool, API and skill and surfaces warnings without creating
+    anything. The provider's own guidance is to call with dryRun:true first, review, then call
+    again to create — "then call again to actually create only after you approve."
+  source: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+reversibility:
+  grade: undocumented
+  coverage: none
+  note: >-
+    The five write tools (create_mcp_server, create_agent_persona, update_agent_persona,
+    create_skill, attach_dlp_policy) have no documented reversal operation. There is no
+    delete_agent_persona, no delete_mcp_server, no detach_dlp_policy and no undo on the MCP
+    surface, and the docs state no window inside which a creation can be withdrawn. Resources
+    created over MCP are removable in the portal UI, but that is a human action outside the
+    agent surface, and no retention or restore window is published for it. NO WINDOW IS
+    ASSERTED HERE because the provider states none.
+  write_surfaces:
+  - {operation: create_mcp_server, reversal: null, window: null, note: no delete tool on the MCP surface}
+  - {operation: create_agent_persona, reversal: null, window: null, note: no delete tool; update_agent_persona can edit grants but cannot remove the persona}
+  - {operation: update_agent_persona, reversal: null, window: null, note: partial edits are applied in place; no prior-version restore is documented}
+  - {operation: create_skill, reversal: null, window: null}
+  - {operation: attach_dlp_policy, reversal: null, window: null, note: no detach tool is published}
+  mitigation: >-
+    dry_run_mode is the only pre-commit safety net Cequence documents. For an agent, rehearse
+    is available and undo is not.
+pagination:
+  documented: false
+  note: >-
+    List tools (list_mcp_servers, list_agent_personas, list_apis, list_skills,
+    query_tool_activity) are published by name only; no cursor, page-size or ordering
+    convention is documented, and the live tools/list that would carry each inputSchema is
+    auth-gated.
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  headers_published: false
+  window: rolling
+  note: >-
+    The gateway rejects with HTTP 429 and logs an audit event with reason rate_limit_exceeded.
+    No RateLimit-* or Retry-After response header is documented, so an agent learns the limit
+    only by hitting it — it cannot pace itself in advance.
+  detail: rate-limits/cequence-rate-limits.yml
+error_envelope:
+  shape: flat JSON {message, status}
+  rfc9457: false
+  observed: >-
+    HTTP 401 {"message":"Missing or invalid Authorization header","status":"error"} from an
+    unauthenticated POST to https://mcp.aigateway.cequence.ai/mcp on 2026-09-05
+  detail: errors/cequence-problem-types.yml
+request_tracing:
+  request_id: true
+  session_id: true
+  fields: [request.id, mcp.session_id]
+  note: >-
+    Every tool-activity event carries a request id for correlation and an MCP session id. The
+    fields are documented as audit-log fields; no statement is made about a response header
+    returning them to the caller.
+enforcement_pipeline:
+  ordered: true
+  steps:
+  - {step: 1, check: routing, blocked_response: 404}
+  - {step: 2, check: authentication, blocked_response: 401}
+  - {step: 3, check: authorization, blocked_response: 403}
+  - {step: 4, check: rate limiting, blocked_response: 429}
+  - {step: 5, check: security interceptors (DLP, behavioral rules), blocked_response: varies}
+  - {step: 6, check: upstream call, blocked_response: 502 or 503}
+  note: A request that fails at any step skips the rest; every decision is written to the audit trail.
+circuit_breaking:
+  supported: true
+  configurable: false
+  behavior: >-
+    Repeated upstream failures open the circuit and requests are rejected immediately with 503.
+    After a cooldown a test request is sent; success closes the circuit and traffic resumes.
+  audit_reason: circuit_breaker_open
+data_loss_prevention:
+  supported: true
+  actions: [monitor, redact, block]
+  applies_to: [MCP servers, Agent Personas]
+  note: >-
+    A response an agent receives may have been redacted in flight by a DLP policy. This is a
+    real response-shape convention an integrator must plan for — a field can come back masked
+    rather than absent.
+  source: https://docs.aigateway.cequence.ai/docs/data-governance
+observability:
+  audit_events: true
+  export_targets: [Splunk HEC, Datadog, OTLP (gRPC or HTTP), syslog (TCP/UDP/TLS)]
+  event_families: [tool activity, operational]
+  note: >-
+    This is an event EXPORT surface configured per pool, not a subscribable webhook API. There
+    is no AsyncAPI document and no webhook catalog, so no AsyncAPI or Webhooks pointer is
+    claimed — see conformance/cequence-conformance.yml.
+  source: https://docs.aigateway.cequence.ai/docs/guides/observability
+network:
+  egress_ips: [34.132.39.216, 34.170.84.5]
+  note: >-
+    Fixed outbound IPv4 addresses for the Cequence-hosted SaaS gateway; both must be allowlisted
+    because traffic can leave from either. Private-cloud deployments egress from the customer's
+    own infrastructure instead.
+  source: https://docs.aigateway.cequence.ai/docs/ip-addresses
+timeouts:
+  mcp_request_timeout_seconds: 30

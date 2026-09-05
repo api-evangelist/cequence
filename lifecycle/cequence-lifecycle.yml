@@ -1,0 +1,55 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  docs.aigateway.cequence.ai sitemap + llms.txt sweep, www.cequence.ai page sitemap, and live
+  probes of the usual status/changelog locations
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: >-
+    Per-tenant MCP server URLs are documented in the form
+    https://mcp.aigateway.cequence.ai/v1/servers/<server-id>; the outbound OAuth callback is
+    https://auth.aigateway.cequence.ai/v1/outbound/oauth/callback. The control-plane REST
+    surface the first-party CLI posts to is a SEPARATE, higher version — POST /api/v2/mcp-specs
+    — so v1 and v2 coexist across different planes.
+  policy_published: false
+  note: No versioning policy document is published; the scheme above is read off documented URLs.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  published: false
+  note: >-
+    No deprecation or sunset policy is published on docs.aigateway.cequence.ai or
+    www.cequence.ai. Probed 2026-09-05.
+changelog:
+  published: false
+  probed:
+  - {url: 'https://docs.aigateway.cequence.ai/docs/changelog', status: 200, verdict: SPA shell, not a page}
+  - {url: 'https://docs.aigateway.cequence.ai/docs/release-notes', status: 200, verdict: SPA shell, not a page}
+  note: >-
+    The docs host is a single-page app that answers 200 with the same 5,193-byte shell for any
+    path, so a 200 proves nothing. The authoritative page list is the sitemap, and it contains
+    no changelog or release-notes entry. Product announcements are published as blog posts
+    under https://www.cequence.ai/blog/cequence-product-news/ instead — dated, but prose.
+status_page:
+  url: null
+  published: false
+  probed:
+  - {url: 'https://status.cequence.ai/', status: 000, verdict: DNS does not resolve}
+  note: >-
+    No status page. This is a notable gap for a platform sold as inline enforcement in front of
+    production API traffic — a customer has no public way to see whether the gateway is healthy.
+sla:
+  url: null
+  published: false
+  note: >-
+    Availability terms are contractual, inside the SaaS AI Gateway End User License Agreement
+    (https://www.cequence.ai/legal/saas-ai-gateway-end-user-license-agreement/), not published
+    as a separate SLA page.
+support:
+  help_center: https://helpdesk.cequence.ai/
+  contact: https://www.cequence.ai/contact-us/
+  note: >-
+    The help center is a Zendesk instance that answers 403 to a non-browser client; it is a bot
+    challenge, not a dead page.
+deprecated_operations: []

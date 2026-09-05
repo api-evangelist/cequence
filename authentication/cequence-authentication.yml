@@ -1,0 +1,119 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.aigateway.cequence.ai/docs/guides/multi-authentication
+docs: https://docs.aigateway.cequence.ai/docs/guides/multi-authentication
+probed:
+- url: https://mcp.aigateway.cequence.ai/.well-known/oauth-authorization-server
+  http_status: 200
+  fetched: '2026-09-05'
+- url: https://mcp.aigateway.cequence.ai/.well-known/oauth-protected-resource
+  http_status: 200
+  fetched: '2026-09-05'
+note: >-
+  Cequence publishes no OpenAPI, so this profile is read from the AI Gateway documentation and
+  from the two live OAuth discovery documents served by the first-party MCP endpoint — not
+  derived from securitySchemes. Cequence AI Gateway is unusual in that it has TWO auth planes:
+  INBOUND (how an agent authenticates to the gateway) and OUTBOUND (how the gateway
+  authenticates to the upstream application on the agent's behalf). Both are catalogued below.
+summary:
+  types: [oauth2, openIdConnect, apiKey, http]
+  api_key_in: [header, query]
+  oauth2_flows: [authorizationCode, clientCredentials, tokenExchange]
+  planes: [inbound, outbound]
+schemes:
+- name: MCP OAuth 2.1 (first-party endpoint)
+  plane: inbound
+  type: oauth2
+  flow: authorizationCode
+  pkce: S256
+  dynamic_client_registration: true
+  issuer: https://mcp.aigateway.cequence.ai
+  authorization_url: https://mcp.aigateway.cequence.ai/authorize
+  token_url: https://mcp.aigateway.cequence.ai/token
+  registration_url: https://mcp.aigateway.cequence.ai/register
+  revocation_url: https://mcp.aigateway.cequence.ai/revoke
+  token_endpoint_auth_methods_supported: [none]
+  scopes: [openid, profile, email, descope.claims, descope.custom_claims]
+  bearer_methods_supported: [header]
+  resource: https://mcp.aigateway.cequence.ai/mcp
+  sources:
+  - well-known/cequence-oauth-authorization-server.json
+  - well-known/cequence-oauth-protected-resource.json
+- name: Interactive SSO
+  plane: inbound
+  type: openIdConnect
+  description: >-
+    Browser-based single sign-on for a human-driven agent session. Supported identity
+    providers documented as Microsoft Entra ID (including an Entra proxy mode), Google
+    Workspace, Okta and GitLab. SSO groups map to AI Gateway Teams, which gate access to MCP
+    servers and Agent Personas.
+  sources: [https://docs.aigateway.cequence.ai/docs/sso-mcp]
+- name: Agent Access Key
+  plane: inbound
+  type: apiKey
+  in: header
+  description: >-
+    A non-interactive credential issued per agent, used where a CI/CD pipeline, an SDK client
+    or a headless runtime cannot complete a browser OAuth flow. Enforced per LLM Registry
+    entry and per Agent Persona.
+  sources: [https://docs.aigateway.cequence.ai/docs/llm-registry/]
+- name: JWT validation (passthrough)
+  plane: inbound
+  type: http
+  scheme: bearer
+  bearer_format: JWT
+  description: >-
+    The gateway validates a caller-supplied JWT against a configured JWKS URL, expected issuer
+    and expected audience, then passes the caller identity through so the upstream call runs
+    under the real user.
+  configuration_inputs: [jwks_url, issuer, audience]
+- name: Control-plane bearer token
+  plane: inbound
+  type: http
+  scheme: bearer
+  description: >-
+    A tenant-scoped bearer token for the Cequence control-plane REST API. Documented by the
+    first-party CLI, which posts a spec bundle to POST /api/v2/mcp-specs using --api-url,
+    --tenant and --api-token (env fallbacks CEQUENCE_API_URL, CEQUENCE_TENANT_ID,
+    CEQUENCE_API_TOKEN). The control-plane base URL is per-deployment; Cequence publishes no
+    OpenAPI for it.
+  sources: [https://www.npmjs.com/package/@cequenceai/mcp-cli]
+- name: OAuth 2.1 Authorization (upstream)
+  plane: outbound
+  type: oauth2
+  flow: authorizationCode
+  description: >-
+    Per-user upstream authorization — each person connects an app (GitHub, Slack, Jira,
+    Salesforce, Google Workspace) once and the gateway stores and refreshes that user's token,
+    so upstream audit trails show the real user rather than a shared bot account.
+  callback: https://auth.aigateway.cequence.ai/v1/outbound/oauth/callback
+- name: OAuth 2.1 Client Credentials (upstream)
+  plane: outbound
+  type: oauth2
+  flow: clientCredentials
+  configuration_inputs: [token_url, client_id, client_secret, scopes]
+- name: Token exchange (on behalf of caller)
+  plane: outbound
+  type: oauth2
+  flow: tokenExchange
+  configuration_inputs: [exchange_endpoint, client_id, client_secret, audience]
+- name: API key (upstream)
+  plane: outbound
+  type: apiKey
+  in: [header, query]
+  configuration_inputs: [key_name, key_value, location]
+- name: Bearer token (upstream)
+  plane: outbound
+  type: http
+  scheme: bearer
+- name: Basic authentication (upstream)
+  plane: outbound
+  type: http
+  scheme: basic
+- name: Passthrough
+  plane: outbound
+  type: http
+  description: The caller's own credential is forwarded unchanged to the upstream application.
+credential_storage: >-
+  API keys, tokens and OAuth secrets entered in the portal are encrypted and held in the
+  platform secret manager (provider statement, multi-authentication guide).

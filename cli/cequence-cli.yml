@@ -1,0 +1,90 @@
+generated: '2026-09-05'
+method: searched
+source: https://www.npmjs.com/package/@cequenceai/mcp-cli
+name: Cequence MCP CLI
+binary: cequence-mcp
+package: "@cequenceai/mcp-cli"
+version: 2.0.1
+published: '2026-08-19'
+license: MIT
+official: true
+description: >-
+  A first-party command-line tool by Cequence Security. It does two jobs: it writes a Cequence
+  MCP server into an AI client's config file, and it introspects an MCP server that the Cequence
+  control plane cannot reach — one hosted on a private network — into a catalog spec that can be
+  uploaded or pushed so the server registers WITH its tools instead of with zero tools.
+install:
+- {method: npx, command: 'npx @cequenceai/mcp-cli@latest --help'}
+- {method: npm-global, command: 'npm install -g @cequenceai/mcp-cli'}
+commands:
+- name: cursor
+  group: client-setup
+  summary: Write a Cequence MCP server into Cursor IDE's config.
+  flags: [--url, --name, --api-key]
+  example: npx @cequenceai/mcp-cli@latest cursor --url "https://your-cequence-gateway.com/mcp" --name "Cequence API Gateway"
+- name: claude
+  group: client-setup
+  summary: Write a Cequence MCP server into Claude's config.
+  flags: [--url, --name, --api-key]
+- name: windsurf
+  group: client-setup
+  summary: Write a Cequence MCP server into Windsurf IDE's config.
+  flags: [--url, --name, --api-key]
+- name: list
+  group: client-setup
+  summary: List the MCP servers the CLI has configured.
+- name: introspect
+  group: onboarding
+  summary: >-
+    Act as an MCP client against a reachable MCP server, perform the handshake, list every tool,
+    and write a catalog bundle for registration in the Cequence AI Gateway.
+  flags:
+  - {flag: --url, alias: -u, required: true, description: remote MCP server URL}
+  - {flag: --transport, alias: -t, values: [streamable-http, sse], default: streamable-http}
+  - {flag: --auth, alias: -a, values: [none, bearer, api-key, basic, oauth], default: none}
+  - {flag: --token, description: bearer token, used with --auth bearer}
+  - {flag: --api-key, description: API key value, used with --auth api-key}
+  - {flag: --header-name, default: Authorization, description: header carrying the API key}
+  - {flag: --basic-user}
+  - {flag: --basic-pass}
+  - {flag: --scope, description: OAuth scope(s), used with --auth oauth}
+  - {flag: --callback-port, default: 8765, description: local redirect port for the OAuth flow}
+  - {flag: --header, repeatable: true, description: 'extra "Name: Value" header, repeatable'}
+  - {flag: --name, alias: -n, description: catalog display name}
+  - {flag: --description, alias: -d}
+  - {flag: --primary-category}
+  - {flag: --family}
+  - {flag: --secondary}
+  - {flag: --out, alias: -o, default: current directory}
+  - {flag: --format, alias: -f, values: [tgz, dir], default: tgz}
+  - {flag: --timeout, description: per-request timeout in seconds}
+  - {flag: --push, description: 'upload the spec to the Cequence control plane (POST /api/v2/mcp-specs)'}
+  - {flag: --api-url, env: CEQUENCE_API_URL, description: control-plane base URL}
+  - {flag: --tenant, env: CEQUENCE_TENANT_ID}
+  - {flag: --api-token, env: CEQUENCE_API_TOKEN, description: control-plane bearer token — not the remote MCP server's token}
+  - {flag: --spec-id, description: with --push, refresh an existing catalog spec's tool list in place}
+  outputs:
+  - {file: '<slug>.tar.gz', description: 'the archive to upload in the AI Gateway UI; contains create-spec.json plus informational tools.json and manifest.json'}
+  - {format: dir, description: 'the three files written loose into <out-dir>/<slug>/ for inspection or diffing'}
+flows:
+- name: Onboard a private-network MCP server
+  steps:
+  - Run introspect from a machine inside the network that can reach the server.
+  - Upload the generated .tar.gz in the AI Gateway UI (add remote MCP server > Upload a spec (CLI)).
+  - Or skip the UI with --push plus --api-url, --tenant and --api-token.
+  caveat: >-
+    introspect removes the tool-DISCOVERY blocker only. A cloud-hosted Cequence gateway still
+    needs runtime network reachability to the internal endpoint; a private or hybrid deployment
+    already has it.
+- name: Wire a gateway MCP server into an IDE
+  steps:
+  - Copy the per-tenant MCP server URL from the server's MCP details page.
+  - Run cursor / claude / windsurf with --url and --name, adding --api-key for key auth.
+  - Verify with list.
+control_plane_api_observed:
+  method: POST
+  path: /api/v2/mcp-specs
+  auth: control-plane bearer token, tenant-scoped
+  base_url: per-deployment (--api-url / CEQUENCE_API_URL)
+  note: >-
+    The only Cequence control-plane REST endpoint published anywhere. There is no OpenAPI for it.

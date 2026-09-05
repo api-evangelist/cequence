@@ -3,116 +3,87 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Cequence Security
 providerId: cequence
+generated: '2026-09-05'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - AI Protection
-  - API Discovery
-  - API Security
-  - Application Security
-  - Attack Surface
-  - Bot Management
-  - Business Logic Abuse
-  - CNAPP
-  - Cybersecurity
-  - Fraud
-  - Unified API Protection
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Cequence Security API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+modified: '2026-09-05'
+method: searched
+source: https://docs.aigateway.cequence.ai/docs/guides/security-policies
+note: >-
+  REPLACES a 2026-05-04 bulk-sweep scaffold whose tiers, headers and numbers were invented.
+  Everything below is published by Cequence. The important nuance: these are not limits Cequence
+  imposes on ITS customers, they are the limits the AI Gateway ENFORCES on agents calling
+  through it — the customer configures them per MCP server and per tool. Cequence publishes no
+  consumption limit on its own control plane or on the first-party MCP server.
+subject: >-
+  Cequence AI Gateway — per-tool rate limiting applied to MCP tool calls traversing the gateway
+scope: per-tool, per-MCP-server (a persona inherits the limits of the servers it composes)
+enabled_by: >-
+  Opt-in per MCP server — MCP Registry > the server > Risk-based Throttling tab > Rate Limiting.
+  When enabled, every tool on that server receives a default limit derived from its HTTP method.
+window: rolling
+window_note: >-
+  "Rate limits reset on a rolling window. The time window is rolling, not fixed — a limit of
+  100/hour means 100 requests in any 60-minute sliding window."
+limits:
+- name: Default — safe methods
+  scope: per-tool
+  http_methods: [GET, HEAD, OPTIONS]
+  limit: 1000
+  timeFrame: hour
+  metric: requests_per_hour
+  basis: default applied automatically when rate limiting is enabled
+- name: Default — mutating methods
+  scope: per-tool
+  http_methods: [POST, PUT, PATCH]
+  limit: 100
+  timeFrame: hour
+  metric: requests_per_hour
+  basis: default applied automatically when rate limiting is enabled
+- name: Default — destructive methods
+  scope: per-tool
+  http_methods: [DELETE]
+  limit: 10
+  timeFrame: hour
+  metric: requests_per_hour
+  basis: default applied automatically when rate limiting is enabled
+configurable:
+  per_tool_override: true
+  max_requests_range: [1, 1000000]
+  time_window_range: [1 second, 24 hours]
+  ui_path: Tools tab > select the tool > Rate Limit > Max Requests / Time Window
+published_examples:
+- {tool: list_customers, method: GET, limit: 5000, timeFrame: hour, rationale: high-frequency read operation}
+- {tool: create_ticket, method: POST, limit: 50, timeFrame: hour, rationale: prevent accidental mass creation}
+- {tool: delete_record, method: DELETE, limit: 5, timeFrame: hour, rationale: extra protection for destructive operations}
+- {tool: send_message, method: POST, limit: 200, timeFrame: 6 hours, rationale: generous but bounded messaging limit}
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Cequence API Spyder
-      - Cequence API Sentinel
-      - Cequence API Spartan
-      - Cequence API Security Testing
-      - Cequence Defender
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Cequence API Spyder
-      - Cequence API Sentinel
-      - Cequence API Spartan
-      - Cequence API Security Testing
-      - Cequence Defender
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Cequence API Spyder
-      - Cequence API Sentinel
-      - Cequence API Spartan
-      - Cequence API Security Testing
-      - Cequence Defender
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Cequence API Spyder
-      - Cequence API Sentinel
-      - Cequence API Spartan
-      - Cequence API Security Testing
-      - Cequence Defender
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Cequence API Spyder
-      - Cequence API Sentinel
-      - Cequence API Spartan
-      - Cequence API Security Testing
-      - Cequence Defender
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+headers:
+  published: false
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  note: >-
+    Cequence documents no rate-limit response headers. On exhaustion the request is rejected
+    with HTTP 429 and an audit event is logged with reason rate_limit_exceeded; the caller
+    receives an error message but no machine-readable budget signal, so an agent cannot pace
+    itself before hitting the wall. This is the single most valuable addition Cequence could
+    make for agent consumers — RateLimit-Limit / RateLimit-Remaining / RateLimit-Reset, or a
+    Retry-After on the 429.
+on_exhaustion:
+- The request is rejected with HTTP 429 (Too Many Requests).
+- The AI agent receives an error message indicating the limit was exceeded.
+- An audit event is logged with reason rate_limit_exceeded.
+- The agent can retry after the time window resets.
+related:
+  circuit_breaking:
+    automatic: true
+    configurable: false
+    status: 503
+    audit_reason: circuit_breaker_open
+limit_count: 3
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

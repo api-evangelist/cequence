@@ -1,0 +1,149 @@
+generated: '2026-09-05'
+method: searched
+status: published
+source: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+ownership: >-
+  First-party. The provider's own documentation states "This is the only remote MCP server in
+  this section that Cequence operates. It is not a third-party vendor endpoint and requires no
+  self-hosting." Every other server listed under /docs/remote-mcp-servers/ is a third-party
+  vendor endpoint that the Cequence AI Gateway proxies, and is NOT catalogued here.
+deployment:
+  mode: remote
+  endpoint: https://mcp.aigateway.cequence.ai/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    The raw endpoint is real and reachable — an unauthenticated POST of tools/list returns
+    HTTP 401 {"message":"Missing or invalid Authorization header"}, and the host serves RFC
+    9728 protected-resource metadata naming exactly this resource. The docs direct customers
+    to connect to the PER-TENANT URL shown on the server's MCP details page rather than to
+    the raw endpoint, because the server is provisioned automatically for every tenant. There
+    is no stdio package for this server; @cequenceai/mcp-stdio (see packages/) is a generic
+    stdio-to-HTTP bridge for reaching ANY Cequence-fronted MCP server from a stdio-only client.
+server:
+  name: Cequence AI Gateway MCP
+  transport: http
+  protocol: Streamable HTTP
+  url: https://mcp.aigateway.cequence.ai/mcp
+  hosted_by: Cequence
+  provisioning: automatic — created for every tenant, available out of the box in the MCP Registry
+  request_timeout_seconds: 30
+authentication:
+  type: oauth2
+  required: true
+  flow: authorization_code
+  pkce: S256
+  dynamic_client_registration: true
+  registration_endpoint: https://mcp.aigateway.cequence.ai/register
+  authorization_endpoint: https://mcp.aigateway.cequence.ai/authorize
+  token_endpoint: https://mcp.aigateway.cequence.ai/token
+  revocation_endpoint: https://mcp.aigateway.cequence.ai/revoke
+  issuer: https://mcp.aigateway.cequence.ai
+  identity_provider: Descope (the AI Gateway identity provider), proxied behind an RFC 8414 + RFC 9728 surface
+  scopes: [openid, profile, email, descope.claims, descope.custom_claims]
+  note: >-
+    Permissions in the MCP server mirror the caller's portal role. Read tools work for any
+    tenant member; write tools require an operator role (for example PlatformOperator or
+    TenantUser) and otherwise return the same authorization error the UI returns.
+introspection:
+  tools_list: gated
+  probed: '2026-09-05'
+  http_status: 401
+  note: >-
+    Live tools/list requires an authenticated bearer token, so per-tool inputSchema could not
+    be captured. The tool list below is transcribed from the provider's own published tools
+    reference — names and read/write kind are the provider's; no input schema is asserted.
+tools:
+- name: list_third_party_apps
+  kind: read
+  description: Browse the Cequence-curated catalog of apps you can build an MCP server from.
+- name: get_third_party_app
+  kind: read
+  description: Fetch one catalog app's endpoints (API) or tools (MCP).
+- name: list_api_specs
+  kind: read
+  description: List the tenant's uploaded custom API specs.
+- name: get_api_spec
+  kind: read
+  description: Fetch one API spec's endpoints.
+- name: list_mcp_specs
+  kind: read
+  description: List the tenant's saved remote-MCP specs.
+- name: get_mcp_spec
+  kind: read
+  description: Fetch one MCP spec's tool inventory.
+- name: list_mcp_servers
+  kind: read
+  description: Discover deployed MCP servers (gateways) in the tenant.
+- name: list_tools_for_mcp_server
+  kind: read
+  description: List a single MCP server's tool definitions.
+- name: list_apis
+  kind: read
+  description: List registered REST APIs (the API Registry).
+- name: get_api_registry
+  kind: read
+  description: Fetch a registered API's operations.
+- name: list_pools
+  kind: read
+  description: List private deployment pools.
+- name: list_teams
+  kind: read
+  description: List teams (SSO-mapped user groups).
+- name: list_skills
+  kind: read
+  description: List registered skills.
+- name: get_skill
+  kind: read
+  description: Fetch one skill's full content.
+- name: list_sdp_categories
+  kind: read
+  description: List standard sensitive-data-protection categories.
+- name: list_dlp_policies
+  kind: read
+  description: List DLP policies, optionally scoped to a persona.
+- name: list_agent_personas
+  kind: read
+  description: List agent personas.
+- name: get_agent_persona
+  kind: read
+  description: Fetch one persona, including its connect URL.
+- name: query_tool_activity
+  kind: read
+  description: Observability — logs, summary, facets, trends, log detail and sensitive-data findings.
+- name: recommend_dlp_policy
+  kind: read
+  description: Recommend a DLP policy for a persona (deterministic).
+- name: create_mcp_server
+  kind: write
+  description: Create an MCP server from an API or remote-MCP spec.
+  dry_run: true
+- name: create_agent_persona
+  kind: write
+  description: Create an agent persona.
+  dry_run: true
+- name: update_agent_persona
+  kind: write
+  description: Apply partial edits to an existing persona.
+- name: create_skill
+  kind: write
+  description: Create a reusable skill in the Skill Registry.
+- name: attach_dlp_policy
+  kind: write
+  description: Create and attach a DLP policy to an existing persona.
+coverage:
+  tools_total: 25
+  read: 20
+  write: 5
+  dry_run_capable: 2
+x-evidence:
+- url: https://mcp.aigateway.cequence.ai/mcp
+  method: POST tools/list
+  http_status: 401
+  fetched: '2026-09-05'
+- url: https://mcp.aigateway.cequence.ai/.well-known/oauth-protected-resource
+  http_status: 200
+  fetched: '2026-09-05'
+- url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+  http_status: 200
+  fetched: '2026-09-05'

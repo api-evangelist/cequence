@@ -1,0 +1,90 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.aigateway.cequence.ai/docs/guides/security-policies
+also:
+- https://docs.aigateway.cequence.ai/docs/guides/observability
+format: http-status
+envelope:
+  media_type: application/json
+  rfc9457: false
+  note: >-
+    Cequence documents no application/problem+json envelope. What it DOES publish, and what an
+    agent can actually act on, is a six-step enforcement pipeline where each step has a defined
+    blocked response, plus a matching set of audit reason codes carried on the tool-activity
+    event. The reason code is the machine-readable half — the agent sees the HTTP status, the
+    operator sees the reason in the audit trail, and they are paired one-to-one below. A live
+    unauthenticated call to the first-party MCP endpoint returns
+    {"message":"Missing or invalid Authorization header","status":"error"} with HTTP 401,
+    confirming a flat {message, status} JSON body rather than an RFC 9457 problem document.
+problems:
+- status: 404
+  title: No matching route
+  stage: 1 Routing
+  reason: request path does not match a known MCP server or persona
+  remediation: Check the per-tenant MCP server URL copied from the server's MCP details page.
+- status: 401
+  title: Unauthorized
+  stage: 2 Authentication
+  reason: auth_denied
+  severity: WARN
+  detail: Agent credential (API key, OAuth token or JWT) is invalid or expired.
+  remediation: Re-authenticate, or generate a new agent access key.
+  observed: >-
+    POST https://mcp.aigateway.cequence.ai/mcp with no Authorization header returns
+    {"message":"Missing or invalid Authorization header","status":"error"}
+- status: 403
+  title: Forbidden
+  stage: 3 Authorization
+  reason: authz_denied
+  aliases: [access_control_denied]
+  severity: WARN
+  detail: The agent does not have permission to call this tool.
+  remediation: Check the persona's tool assignments and the caller's team membership.
+- status: 429
+  title: Too Many Requests
+  stage: 4 Rate limiting
+  reason: rate_limit_exceeded
+  severity: WARN
+  detail: The tool's configured rate limit was exceeded for the current rolling window.
+  remediation: Wait for the rolling window to reset, or raise the per-tool limit.
+  see: rate-limits/cequence-rate-limits.yml
+- status: varies
+  title: Blocked by security interceptor
+  stage: 5 Security interceptors
+  reason: interceptor_denied
+  detail: A configured security policy — DLP or a behavioral rule — flagged the request.
+  remediation: Review the configured security interceptors and the DLP policy on the persona.
+- status: 502
+  title: Upstream error
+  stage: 6 Upstream call
+  reason: upstream_error
+  severity: ERROR
+  detail: The backend application returned an error.
+- status: 503
+  title: Service unavailable — circuit breaker open
+  stage: 6 Upstream call
+  reason: circuit_breaker_open
+  severity: WARN
+  detail: >-
+    The gateway stopped forwarding to a repeatedly failing backend. After a cooldown it sends a
+    test request; on success the circuit closes and traffic resumes automatically.
+  remediation: No client action — retry after the cooldown, or fix the upstream service.
+- status: 502
+  title: Outbound authentication failed
+  stage: 6 Upstream call
+  reason: outbound_auth_failed
+  severity: ERROR
+  detail: The gateway could not obtain or refresh the upstream credential for this caller.
+  remediation: Reconnect the upstream app authorization for this user.
+tool_call_status_values: [success, error, blocked, rate_limited]
+action_values: [allowed, blocked]
+operational_events:
+- {event: auth_denied, severity: WARN, description: Authentication failed (invalid or expired credential)}
+- {event: access_control_denied, severity: WARN, description: Authorization check failed (wrong team or role)}
+- {event: rate_limit_exceeded, severity: WARN, description: Rate limit policy exceeded}
+- {event: circuit_breaker_open, severity: WARN, description: Backend circuit breaker tripped}
+- {event: upstream_error, severity: ERROR, description: Backend returned an error}
+- {event: outbound_auth_failed, severity: ERROR, description: Failed to obtain upstream credentials}
+- {event: config_change, severity: INFO, description: Configuration updated from the control plane}
+- {event: component_lifecycle, severity: INFO, description: Component deployed, ready or degraded}
+- {event: reconciliation_complete, severity: INFO, description: Operator completed a reconciliation cycle}

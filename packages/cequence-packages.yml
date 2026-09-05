@@ -1,0 +1,80 @@
+generated: '2026-09-05'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=cequence
+note: >-
+  Registries probed 2026-09-05: npm, PyPI, crates.io, RubyGems, Maven Central, NuGet and
+  pkg.go.dev. Only npm carries first-party Cequence Security packages, all under the
+  @cequenceai scope, all authored "Cequence Security", all MIT. There is no server-side API
+  client library in any language — Cequence publishes no OpenAPI for its control plane, so
+  there is nothing for an SDK to wrap. What it ships instead is agent-client tooling: a CLI
+  that wires an MCP server into an AI client, and a stdio bridge for clients that cannot speak
+  HTTP MCP.
+ownership_check: >-
+  Every package's repository field points at https://github.com/cequence-io/mcp-api-gateway,
+  which returns HTTP 404. Note that github.com/cequence-io is NOT Cequence Security — it is
+  "Cequence - The future of contracting" (cequence.io), an unrelated Scala shop. Cequence
+  Security's own org is github.com/cequenceai. The packages are still first-party (author
+  "Cequence Security", README "A command-line tool by Cequence Security", @cequenceai scope,
+  and they configure Cequence AI Gateway endpoints), but the repository metadata points at a
+  non-existent repo in another company's namespace and should be corrected by the provider.
+packages:
+- language: javascript
+  registry: npm
+  name: "@cequenceai/mcp-cli"
+  url: https://www.npmjs.com/package/@cequenceai/mcp-cli
+  install: npm install -g @cequenceai/mcp-cli
+  run: npx @cequenceai/mcp-cli@latest --help
+  binary: cequence-mcp
+  version: 2.0.1
+  published: '2026-08-19'
+  license: MIT
+  official: true
+  role: cli
+  description: >-
+    Configures a Cequence MCP server into Cursor, Claude and Windsurf, and introspects an
+    internally-hosted MCP server into an uploadable Cequence catalog spec.
+  detail: cli/cequence-cli.yml
+- language: javascript
+  registry: npm
+  name: "@cequenceai/mcp-stdio"
+  url: https://www.npmjs.com/package/@cequenceai/mcp-stdio
+  install: npm install -g @cequenceai/mcp-stdio
+  binary: cequence-mcp-stdio
+  version: 1.0.0
+  published: '2025-07-09'
+  license: MIT
+  official: true
+  role: transport-bridge
+  description: >-
+    stdio-to-HTTP bridge that translates MCP protocol messages from stdio to HTTP so a
+    stdio-only client (Claude Desktop) can reach a Cequence-fronted MCP server. Handles session
+    state, API-key auth, SSE responses and JSON-RPC error mapping.
+- language: javascript
+  registry: npm
+  name: cequence-mcp-cli
+  url: https://www.npmjs.com/package/cequence-mcp-cli
+  install: npm install -g cequence-mcp-cli
+  version: 1.0.4
+  published: '2025-07-01'
+  license: MIT
+  official: true
+  deprecated: true
+  superseded_by: "@cequenceai/mcp-cli"
+  description: >-
+    The original unscoped publish of the MCP CLI. Superseded by the scoped @cequenceai/mcp-cli,
+    which is 14 months newer and adds the introspect command; this entry is recorded so a
+    consumer who finds the unscoped name knows it is stale.
+absent:
+- {registry: pypi, probed: ['cequence', 'cequence-ai', 'cequence-aigateway', aigateway], result: 404}
+- {registry: crates.io, query: cequence, result: 0 crates}
+- {registry: rubygems, result: none}
+- {registry: maven-central, result: none}
+- {registry: nuget, result: none}
+- {registry: pkg.go.dev, result: none}
+currency:
+  newest_release: '2026-08-19'
+  assessment: >-
+    Current. The CLI shipped 2.0.1 seventeen days before this pass, and its introspect command
+    matches a feature described in the live documentation — the tooling and the platform are
+    in step. The stdio bridge has not moved since 2025-07-09, which is unremarkable for a
+    protocol shim whose job has not changed.

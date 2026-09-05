@@ -1,0 +1,23 @@
+generated: '2026-09-05'
+method: generated
+source: >-
+  Cequence AI Gateway documentation and the published @cequenceai/mcp-cli README. Grounded in
+  the provider's own tool and command names — Cequence publishes no OpenAPI, so these skills are
+  bound to the MCP tool reference rather than to operationIds.
+provider_published_skills: false
+provider_published_skills_note: >-
+  Cequence ships a Skill Registry as a PRODUCT FEATURE — customers register SKILL.md runbooks and
+  attach them to agent personas — but publishes no skills of its own for calling Cequence.
+skills:
+- file: cequence-onboard-governed-agent.md
+  name: Onboard a least-privilege agent on Cequence AI Gateway
+  api: mcp/cequence-mcp.yml
+  operations: [list_third_party_apps, get_third_party_app, list_api_specs, get_api_spec, list_mcp_specs, get_mcp_spec, list_pools, list_teams, create_mcp_server, list_skills, create_agent_persona, recommend_dlp_policy, attach_dlp_policy, get_agent_persona]
+- file: cequence-audit-agent-activity.md
+  name: Audit and right-size agent activity on Cequence AI Gateway
+  api: mcp/cequence-mcp.yml
+  operations: [query_tool_activity, list_mcp_servers, list_tools_for_mcp_server, list_agent_personas, get_agent_persona, list_dlp_policies, update_agent_persona]
+- file: cequence-register-private-mcp-server.md
+  name: Register a private-network MCP server with Cequence AI Gateway
+  api: cli/cequence-cli.yml
+  operations: [introspect, create_mcp_server, list_mcp_specs, get_mcp_spec, list_mcp_servers, list_tools_for_mcp_server]

@@ -1,0 +1,1 @@
+{"authorization_servers":["https://mcp.aigateway.cequence.ai"],"bearer_methods_supported":["header"],"resource":"https://mcp.aigateway.cequence.ai/mcp","scopes_supported":["openid","profile","email","descope.claims","descope.custom_claims"]}

@@ -1,0 +1,84 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  live /.well-known/ documents on mcp.aigateway.cequence.ai plus the Cequence AI Gateway
+  documentation and the published compliance and trust pages
+standards:
+- id: oauth2
+  conforms: true
+  evidence: https://mcp.aigateway.cequence.ai/.well-known/oauth-authorization-server (HTTP 200)
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-authorization-server returns issuer, authorization_endpoint,
+    token_endpoint, registration_endpoint, revocation_endpoint and scopes_supported
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-protected-resource returns resource, authorization_servers,
+    bearer_methods_supported and scopes_supported
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://mcp.aigateway.cequence.ai/register is advertised
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"]
+- id: oidc-discovery
+  conforms: true
+  evidence: https://mcp.aigateway.cequence.ai/.well-known/openid-configuration (HTTP 200)
+- id: mcp-streamable-http
+  conforms: true
+  evidence: >-
+    Provider documents Streamable HTTP transport for the first-party server; an unauthenticated
+    JSON-RPC tools/list to https://mcp.aigateway.cequence.ai/mcp returns HTTP 401 rather than 404
+- id: saml2
+  conforms: true
+  evidence: >-
+    SSO configuration guides publish SAML setup for Okta, Microsoft Entra ID, Google Workspace
+    and GitLab — https://docs.aigateway.cequence.ai/docs/sso-mcp
+- id: opentelemetry-otlp
+  conforms: true
+  evidence: >-
+    Audit and tool-activity events export over OTLP (gRPC or HTTP) alongside Splunk HEC,
+    Datadog and syslog — https://docs.aigateway.cequence.ai/docs/guides/observability
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every Cequence host probed 2026-09-05
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json envelope is documented; the gateway returns plain HTTP status codes
+- id: openapi
+  conforms: false
+  evidence: >-
+    Cequence consumes OpenAPI (the API Registry registers a customer's REST API from its spec)
+    but publishes no OpenAPI for its own control-plane or MCP surface
+- id: a2a
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 or an SPA shell on
+    every Cequence host probed 2026-09-05
+- id: asyncapi
+  conforms: false
+  evidence: an audit-event catalog is documented but no AsyncAPI document is published
+domain_standards:
+- id: model-context-protocol
+  market: agentic AI / AI gateway
+  conforms: true
+  declared_in: >-
+    the product itself — the AI Gateway's entire external contract is MCP, and the first-party
+    server is reachable as an MCP endpoint at https://mcp.aigateway.cequence.ai/mcp
+  evidence: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
+- id: owasp-api-security-top-10
+  market: API security
+  conforms: true
+  declared_in: >-
+    API Security Testing performs pre-production conformance and vulnerability testing against
+    the OWASP API Security Top 10
+  evidence: https://www.cequence.ai/products/api-security/
+compliance:
+  published: true
+  page: https://www.cequence.ai/compliance/
+  trust_center: https://trust.cequence.ai/
+  certifications: [SOC 2, ISO 27001, PCI DSS, GDPR]
+  regimes_addressed: [EU AI Act, PCI DSS]
+  source: security/cequence-trust-center.yml
