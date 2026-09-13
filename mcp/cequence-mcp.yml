@@ -2,24 +2,27 @@ generated: '2026-09-05'
 method: searched
 status: published
 source: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
-ownership: >-
-  First-party. The provider's own documentation states "This is the only remote MCP server in
-  this section that Cequence operates. It is not a third-party vendor endpoint and requires no
-  self-hosting." Every other server listed under /docs/remote-mcp-servers/ is a third-party
-  vendor endpoint that the Cequence AI Gateway proxies, and is NOT catalogued here.
+ownership: First-party. The provider's own documentation states "This is the only remote MCP server in
+  this section that Cequence operates. It is not a third-party vendor endpoint and requires no self-hosting."
+  Every other server listed under /docs/remote-mcp-servers/ is a third-party vendor endpoint that the
+  Cequence AI Gateway proxies, and is NOT catalogued here.
 deployment:
   mode: remote
   endpoint: https://mcp.aigateway.cequence.ai/mcp
   auth: oauth
   verified: probed
-  note: >-
-    The raw endpoint is real and reachable — an unauthenticated POST of tools/list returns
-    HTTP 401 {"message":"Missing or invalid Authorization header"}, and the host serves RFC
-    9728 protected-resource metadata naming exactly this resource. The docs direct customers
-    to connect to the PER-TENANT URL shown on the server's MCP details page rather than to
-    the raw endpoint, because the server is provisioned automatically for every tenant. There
-    is no stdio package for this server; @cequenceai/mcp-stdio (see packages/) is a generic
-    stdio-to-HTTP bridge for reaching ANY Cequence-fronted MCP server from a stdio-only client.
+  note: The raw endpoint is real and reachable — an unauthenticated POST of tools/list returns HTTP 401
+    {"message":"Missing or invalid Authorization header"}, and the host serves RFC 9728 protected-resource
+    metadata naming exactly this resource. The docs direct customers to connect to the PER-TENANT URL
+    shown on the server's MCP details page rather than to the raw endpoint, because the server is provisioned
+    automatically for every tenant. There is no stdio package for this server; @cequenceai/mcp-stdio (see
+    packages/) is a generic stdio-to-HTTP bridge for reaching ANY Cequence-fronted MCP server from a stdio-only
+    client.
+  probe_prior: (never probed)
+  probe: gated
+  probe_why: RFC 9728 challenge on the MCP path only
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
 server:
   name: Cequence AI Gateway MCP
   transport: http
@@ -39,20 +42,24 @@ authentication:
   token_endpoint: https://mcp.aigateway.cequence.ai/token
   revocation_endpoint: https://mcp.aigateway.cequence.ai/revoke
   issuer: https://mcp.aigateway.cequence.ai
-  identity_provider: Descope (the AI Gateway identity provider), proxied behind an RFC 8414 + RFC 9728 surface
-  scopes: [openid, profile, email, descope.claims, descope.custom_claims]
-  note: >-
-    Permissions in the MCP server mirror the caller's portal role. Read tools work for any
-    tenant member; write tools require an operator role (for example PlatformOperator or
-    TenantUser) and otherwise return the same authorization error the UI returns.
+  identity_provider: Descope (the AI Gateway identity provider), proxied behind an RFC 8414 + RFC 9728
+    surface
+  scopes:
+  - openid
+  - profile
+  - email
+  - descope.claims
+  - descope.custom_claims
+  note: Permissions in the MCP server mirror the caller's portal role. Read tools work for any tenant
+    member; write tools require an operator role (for example PlatformOperator or TenantUser) and otherwise
+    return the same authorization error the UI returns.
 introspection:
   tools_list: gated
   probed: '2026-09-05'
   http_status: 401
-  note: >-
-    Live tools/list requires an authenticated bearer token, so per-tool inputSchema could not
-    be captured. The tool list below is transcribed from the provider's own published tools
-    reference — names and read/write kind are the provider's; no input schema is asserted.
+  note: Live tools/list requires an authenticated bearer token, so per-tool inputSchema could not be captured.
+    The tool list below is transcribed from the provider's own published tools reference — names and read/write
+    kind are the provider's; no input schema is asserted.
 tools:
 - name: list_third_party_apps
   kind: read
