@@ -1,6 +1,10 @@
 aid: cequence
 url: https://raw.githubusercontent.com/api-evangelist/cequence/refs/heads/main/apis.yml
 name: Cequence Security
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-21
+x-docs-hosting: firebase
 tags:
 - AI Protection
 - API Discovery
