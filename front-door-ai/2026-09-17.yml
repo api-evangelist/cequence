@@ -1,0 +1,29 @@
+# Front Door AI Index — cequence — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: cequence
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.cequence.ai
+  final_host: www.cequence.ai
+  ownership: own
+  owner: cequence
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 44
+  host_score: 44
+  density: 47.11
+  words: 934
+  tiers:
+    agentic: 20
+    core: 23
+    model: 1
+  ambiguous: 22
+  top_terms:
+    AI: 23
+    agent: 22
+    agentic: 17
+    AI agent: 3
+    Anthropic: 1
