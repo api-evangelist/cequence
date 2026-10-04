@@ -15,6 +15,18 @@ tags:
 - Business Logic Abuse
 - CNAPP
 - Cybersecurity
+- Fraud Prevention
+- Unified API Protection
+tags_raw:
+- AI Protection
+- API Discovery
+- API Security
+- Application Security
+- Attack Surface
+- Bot Management
+- Business Logic Abuse
+- CNAPP
+- Cybersecurity
 - Fraud
 - Unified API Protection
 type: Index
@@ -78,6 +90,12 @@ apis:
   - API Inventory
   - Compliance
   - Posture
+  - Risk Management
+  - Sensitive Data
+  tags_raw:
+  - API Inventory
+  - Compliance
+  - Posture
   - Risk
   - Sensitive Data
   humanURL: https://www.cequence.ai/products/
@@ -92,6 +110,13 @@ apis:
 - aid: cequence:cequence-api-spartan
   name: Cequence API Spartan
   tags:
+  - ATO
+  - Bot Management
+  - Business Logic Abuse
+  - Credential Stuffing
+  - Fraud Prevention
+  - Runtime
+  tags_raw:
   - ATO
   - Bot Management
   - Business Logic Abuse
@@ -153,10 +178,10 @@ apis:
   tags:
   - AI Gateway
   - MCP
-  - Agentic AI
+  - AI Agents
   - API Security
   - API Governance
-  - agent-native
+  - Agent-Native
   tags_raw:
   - ai-gateway
   - model-context-protocol
@@ -164,6 +189,7 @@ apis:
   - api-security
   - api-governance
   - agent-native
+  - Agentic AI
   properties:
   - type: Documentation
     url: https://docs.aigateway.cequence.ai/docs/introduction
