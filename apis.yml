@@ -222,6 +222,10 @@ apis:
   - type: WellKnown
     url: well-known/cequence-well-known.yml
 common:
+- type: RateLimits
+  url: rate-limits/cequence-rate-limits.yml
+- type: FinOps
+  url: finops/cequence-finops.yml
 - type: TrustCenter
   url: security/cequence-trust-center.yml
 - type: DomainSecurity
