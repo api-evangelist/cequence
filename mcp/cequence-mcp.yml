@@ -154,3 +154,22 @@ x-evidence:
 - url: https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway
   http_status: 200
   fetched: '2026-09-05'
+rfc9728:
+  endpoint: https://mcp.aigateway.cequence.ai/mcp
+  metadata_url: https://mcp.aigateway.cequence.ai/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.aigateway.cequence.ai/mcp
+    authorization_servers:
+    - https://mcp.aigateway.cequence.ai
+    scopes_supported:
+    - openid
+    - profile
+    - email
+    - descope.claims
+    - descope.custom_claims
+    bearer_methods_supported:
+    - header
