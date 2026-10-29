@@ -1,4 +1,4 @@
-# Cequence Security (cequence)
+# Cequence Security
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,82 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cequence Security delivers the Unified API Protection (UAP) platform, combining external API attack-surface discovery, posture and compliance analysis, inline runtime protection, and testing into a single solution for defending web applications, APIs, and AI endpoints against business logic abuse, bot attacks, and fraud. The Cequence product family is organized into API Spyder (agentless external discovery), API Sentinel (API inventory, posture, and compliance), API Spartan (runtime bot and abuse defense), API Security Testing, and Cequence Defender (inline reverse-proxy enforcement of API policy).
+Cequence Security delivers the Unified API Protection (UAP) platform, combining external API attack-surface discovery, posture and compliance analysis, inline runtime protection, and testing into a single solution for defending web applications, APIs, and AI endpoints against business logic abuse, bot attacks, and fraud. The Cequence product family is organized into API Spyder (agentless external discovery), API Sentinel (API inventory, posture, and compliance), API Spartan (runtime bot and abuse defense), API Security Testing (shift-left OpenAPI conformance and vulnerability testing), and Cequence Defender (inline reverse-proxy enforcement of API policy).
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/cequence/refs/heads/main/apis.yml)
+**Areas:** AI Protection · API Discovery · API Security · Application Security · Attack Surface · Bot Management · Business Logic Abuse · CNAPP · Cybersecurity · Fraud Prevention · Unified API Protection
 
-## Scope
+## Cequence Security on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Cequence Security is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cequence/](https://apis.io/providers/cequence/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- API Security, Cybersecurity, Bot Management, Attack Surface, API Discovery, Business Logic Abuse, Fraud, Unified API Protection, AI Protection, Application Security
+- [Cequence API Spyder](https://apis.io/apis/cequence/cequence-api-spyder/) — API Spyder is a SaaS-based, agentless external discovery service that provides an attacker's view into an organization's public-facing API hosts, hosting…
+- [Cequence API Sentinel](https://apis.io/apis/cequence/cequence-api-sentinel/) — API Sentinel is the Cequence API posture and compliance module that continuously inventories internal and external APIs, classifies sensitive data flows,…
+- [Cequence API Spartan](https://apis.io/apis/cequence/cequence-api-spartan/) — API Spartan provides runtime protection against malicious and unwanted API traffic, including account takeover, credential stuffing, scraping, gift-card…
+- [Cequence API Security Testing](https://apis.io/apis/cequence/cequence-api-security-testing/) — API Security Testing extends Cequence into shift-left, performing pre-production OpenAPI conformance and vulnerability testing against the OWASP API…
+- [Cequence Defender](https://apis.io/apis/cequence/cequence-defender/) — Cequence Defender is a reverse-proxy deployed inline with API traffic, enforcing API policies, filtering malicious traffic, and providing real-time…
+- [Cequence AI Gateway](https://apis.io/apis/cequence/cequence-ai-gateway/) — Enterprise AI Gateway that makes applications agent-ready through governed Model Context Protocol integration. Register a REST API from its OpenAPI spec (or…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-08
-- **Modified:** 2026-04-23
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Cequence API Spyder
-A SaaS-based, agentless external discovery service that provides an attacker's view into an organization's public-facing API hosts, hosting providers, and API-specific exposures.
+Model Context Protocol servers that expose the API to agents.
 
-**Human URL:** [https://www.cequence.ai/products/api-spyder/](https://www.cequence.ai/products/api-spyder/)
+- [Cequence AI Gateway MCP](https://apis.io/servers/cequence/cequence-ai-gateway-mcp/)
 
-#### Tags
-- Discovery, Attack Surface Management, External Scanning, Shadow APIs
+#### Security (4)
 
-#### Properties
-- [Website](https://www.cequence.ai/products/api-spyder/)
-- [Datasheet](https://www.cequence.ai/wp-content/uploads/2022/06/cequence-ds-apispyder.pdf)
-- [Demo](https://www.cequence.ai/apispyder-demo/)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Cequence API Sentinel
-The Cequence API posture and compliance module that continuously inventories internal and external APIs, classifies sensitive data flows, and scores API risk.
+- [Cequence Authentication](https://apis.io/security/cequence/cequence-authentication/)
+- [Cequence Domain Security](https://apis.io/security/cequence/cequence-domain-security/)
+- [Cequence Trust Center](https://apis.io/security/cequence/cequence-trust-center/)
+- [Cequence Vulnerability Disclosure](https://apis.io/security/cequence/cequence-vulnerability-disclosure/)
 
-**Human URL:** [https://www.cequence.ai/products/](https://www.cequence.ai/products/)
+#### OAuth scopes (1)
 
-#### Tags
-- API Inventory, Posture, Compliance, Sensitive Data, Risk
+The permissions the API asks for.
 
-### Cequence API Spartan
-Runtime protection against malicious and unwanted API traffic, including account takeover, credential stuffing, scraping, and business logic abuse.
+- [Cequence Scopes](https://apis.io/scopes/cequence/cequence-scopes/)
 
-**Human URL:** [https://www.cequence.ai/products/](https://www.cequence.ai/products/)
+#### Plans and pricing (1)
 
-#### Tags
-- Bot Management, Credential Stuffing, ATO, Fraud, Runtime, Business Logic Abuse
+Published plans, tiers and prices.
 
-### Cequence API Security Testing
-Shift-left, pre-production OpenAPI conformance and vulnerability testing against the OWASP API Security Top 10.
+- [Cequence Plans Pricing](https://apis.io/plans/cequence/cequence-plans-pricing/)
 
-**Human URL:** [https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/](https://www.cequence.ai/blog/cequence-product-news/announcing-unified-api-protection-v2-0/)
+#### Rate limits (1)
 
-#### Tags
-- Testing, DAST, Conformance, Pre-Production, OWASP API Top 10
+Published request limits.
 
-### Cequence Defender
-Reverse-proxy deployed inline with API traffic, enforcing API policies and providing real-time detection and mitigation.
+- [Cequence Rate Limits](https://apis.io/rate-limits/cequence/cequence-rate-limits/)
 
-**Human URL:** [https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview](https://helpdesk.cequence.ai/hc/en-us/articles/19223960381719-Cequence-Unified-API-Protection-overview)
+#### FinOps (1)
 
-#### Tags
-- Reverse Proxy, Inline, Policy, Enforcement, Runtime
+What the API costs to run, by operation.
 
-## Common Properties
+- [Cequence Finops](https://apis.io/finops/cequence/cequence-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.cequence.ai/)
-- [Products](https://www.cequence.ai/products/)
-- [HelpCenter](https://helpdesk.cequence.ai/)
+- [Documentation](https://docs.aigateway.cequence.ai/docs/introduction)
+- [API reference](https://docs.aigateway.cequence.ai/docs/remote-mcp-servers/cequence-ai-gateway)
 - [Blog](https://www.cequence.ai/blog/)
-- [News](https://www.cequence.ai/news/)
+- [Security](https://www.cequence.ai/responsible-disclosure-policy/)
+- [Compliance](https://www.cequence.ai/compliance/)
+- [Terms of service](https://www.cequence.ai/legal/saas-ai-gateway-end-user-license-agreement/)
+- [Privacy policy](https://www.cequence.ai/privacy/)
+- [GitHub](https://github.com/cequenceai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 41.2** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 72.5 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 43.4 |
+
+**Agent readiness 33.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cequence/](https://apis.io/providers/cequence/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cequence Security: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cequence/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
